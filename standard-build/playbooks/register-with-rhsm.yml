@@ -10,5 +10,5 @@
         state: present
         username: "{{ rhsm_username }}"
         password: "{{ rhsm_password }}"
-        auto_attach: no
+        auto_attach: true
         pool: "{{ pool_name }}"
