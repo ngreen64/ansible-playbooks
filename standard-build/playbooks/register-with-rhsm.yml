@@ -4,6 +4,7 @@
     rhsm_username: "someone"
     rhsm_password: "somepassword"
     pool_name: "somepoolid"
+    forceoption: no
   tasks:
     - name: Register to rhsm.
       redhat_subscription:
@@ -12,3 +13,4 @@
         password: "{{ rhsm_password }}"
         auto_attach: true
         pool: "{{ pool_name }}"
+        force_register: "{{ forceoption }}"
