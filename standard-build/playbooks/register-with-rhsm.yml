@@ -8,7 +8,7 @@
     - name: Register to rhsm.
       redhat_subscription:
         state: present
-        username: {{ rhsm-username }}
-        password: {{ rhsm-password }}
+        username: "{{ rhsm-username }}"
+        password: "{{ rhsm-password }}"
         auto_attach: no
-        pool: {{ pool-name }}
+        pool: "{{ pool-name }}"
