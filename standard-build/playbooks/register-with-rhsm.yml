@@ -1,9 +1,6 @@
 ---
 - hosts: all
   vars:
-    rhsm_username: "someone"
-    rhsm_password: "somepassword"
-    pool_name: "somepoolid"
     forceoption: no
   tasks:
     - name: Register to rhsm.
