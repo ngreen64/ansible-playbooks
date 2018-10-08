@@ -2,3 +2,13 @@
 - hosts: all
   roles:
   - { role: redhataccess.redhat-access-insights-client, when: ansible_os_family == 'RedHat' }
+  
+  tasks:
+  - name: Check whether we are registered against Insights
+    shell: /usr/bin/redhat-access-insights --status
+    register: result
+    ignore_errors: True
+    
+  - name: Register with Red Hat Insights
+    shell: /usr/bin/redhat-access-insights --register
+    when: result is failed
