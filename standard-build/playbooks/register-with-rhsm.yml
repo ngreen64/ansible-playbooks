@@ -1,14 +1,14 @@
 ---
 - hosts: all
   vars:
-    rhsm-username: "someone"
-    rhsm-password: "somepassword"
-    pool-name: "somepoolid"
+    rhsm_username: "someone"
+    rhsm_password: "somepassword"
+    pool_name: "somepoolid"
   tasks:
     - name: Register to rhsm.
       redhat_subscription:
         state: present
-        username: "{{ rhsm-username }}"
-        password: "{{ rhsm-password }}"
+        username: "{{ rhsm_username }}"
+        password: "{{ rhsm_password }}"
         auto_attach: no
-        pool: "{{ pool-name }}"
+        pool: "{{ pool_name }}"
