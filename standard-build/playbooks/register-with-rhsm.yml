@@ -19,6 +19,7 @@
       with_items:
         - rhel-7-public-beta-rpms
         - rhel-7-server-htb-rpms
+      ignore_errors: yes
      
     - name: Enable RHEL 7 rpms repo
       rhsm_repository:
