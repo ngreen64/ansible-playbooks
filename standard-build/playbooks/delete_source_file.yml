@@ -1,0 +1,7 @@
+---
+- host: "{{ source_host }}"
+  tasks: 
+  - name: Remove file (delete file)
+    file:
+      path: "{{ source_filepath }}"
+      state: absent
