@@ -1,5 +1,5 @@
 ---
-- host: "{{ source_host }}"
+- hosts: "{{ source_host }}"
   tasks: 
   - name: Remove file (delete file)
     file:
