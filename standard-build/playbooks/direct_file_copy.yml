@@ -9,5 +9,7 @@
 - hosts: "{{ dest_host }}"
   tasks:
    - name: Copy Remote-To-Remote (from source_host to  dest_host)
-     synchronize: src="{{ source_filepath }}" dest="{{ dest_filepath }}"
+     synchronize:
+       src: "{{ source_filepath }}"
+       dest: rsync://"{{ dest_host }}"/"{{ dest_filepath }}"
      delegate_to: "{{ source_host }}"
