@@ -1,12 +1,14 @@
 ---
 - hosts: all
   become: yes
+  gather_facts: no
   tasks:
    - name: Ensure that rsync RPM is installed on all hosts.
      yum:
        name: rsync
        state: present
 - hosts: "{{ dest_host }}"
+  gather_facts: no
   tasks:
    - name: Copy Remote-To-Remote (from source_host to  dest_host)
      synchronize:
