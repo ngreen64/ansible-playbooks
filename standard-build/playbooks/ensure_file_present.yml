@@ -1,0 +1,10 @@
+---
+- hosts: "{{ source_host }}"
+  gather_facts: no
+  tasks:
+  - stat:
+    path: "{{ source_filepath }}"
+    register: fileres
+  - fail:
+      msg: "Whoops! Source file does not exist"
+    when: fileres.stat.isreg is not defined
