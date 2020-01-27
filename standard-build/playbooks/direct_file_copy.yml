@@ -12,6 +12,7 @@
   tasks:
    - name: Copy Remote-To-Remote (from source_host to  dest_host)
      synchronize:
+       delete: yes
        rsync_timeout: 10
        src: "{{ source_filepath }}"
        dest: "{{ dest_filepath }}"
