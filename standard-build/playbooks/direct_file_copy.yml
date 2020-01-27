@@ -1,5 +1,5 @@
-
----- hosts: "{{ dest_host }}"
+---
+- hosts: "{{ dest_host }}"
   gather_facts: no
   tasks:
    - name: Copy Remote-To-Remote (from source_host to  dest_host)
