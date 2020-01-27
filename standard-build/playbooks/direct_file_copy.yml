@@ -12,5 +12,5 @@
      synchronize:
        rsync_timeout: 10
        src: "{{ source_filepath }}"
-       dest: rsync://"{{ dest_host }}"/"{{ dest_filepath }}"
+       dest: "{{ dest_filepath }}"
      delegate_to: "{{ source_host }}"
