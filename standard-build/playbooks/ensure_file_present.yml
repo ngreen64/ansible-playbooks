@@ -3,7 +3,7 @@
   gather_facts: no
   tasks:
   - stat:
-    path: "{{ source_filepath }}"
+      path: "{{ source_filepath }}"
     register: fileres
   - fail:
       msg: "Whoops! Source file does not exist"
