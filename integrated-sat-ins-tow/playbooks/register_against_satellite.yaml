@@ -9,6 +9,5 @@
         activationkey: "Register-against-Rhel7"
         org_id: "mylab"
         force_register: yes
-        pool: '^(Red Hat Enterprise Server)'
         auto_attach: true
         server_hostname: "satellite.mylab.com"
