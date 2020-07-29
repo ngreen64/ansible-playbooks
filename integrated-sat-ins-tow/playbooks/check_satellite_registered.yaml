@@ -3,6 +3,6 @@
   vars:
     gather_facts: yes
   tasks:
-    - name: Register to rhsm.
+    - name: Check whether this server is registered against Satellite Server
       command: "/usr/sbin/subscription-manager status"
       when: os_type == 'rhel_7x64'
