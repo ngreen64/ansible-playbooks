@@ -2,11 +2,10 @@
 - hosts: all:!tag_infranode
   gather_facts: no
   tasks:
-    - name: Register to against Satellite Server
+    - name: Register machines against Satellite Server
       redhat_subscription:
         state: present
         activationkey: "Register-against-Rhel7"
         org_id: "mylab"
         auto_attach: true
         server_hostname: "satellite.mylab.com"
-
