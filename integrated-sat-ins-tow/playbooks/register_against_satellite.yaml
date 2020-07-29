@@ -4,12 +4,11 @@
   become: true
   tasks:
     - name: Register machines against Satellite Server
-      command: 'cat /etc/shadow'
-  #    redhat_subscription:
-  #      state: present
-  #      activationkey: "Register-against-Rhel7"
-  #      org_id: "mylab"
-  #      force_register: yes
-  #      pool: '^(Red Hat Enterprise Server)'
-  #      auto_attach: true
-  #      server_hostname: "satellite.mylab.com"
+      redhat_subscription:
+        state: present
+        activationkey: "Register-against-Rhel7"
+        org_id: "mylab"
+        force_register: yes
+        pool: '^(Red Hat Enterprise Server)'
+        auto_attach: true
+        server_hostname: "satellite.mylab.com"
