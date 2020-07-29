@@ -6,8 +6,8 @@
     - name: Register machines against Satellite Server
       redhat_subscription:
         state: present
-        activationkey: "Register-against-Rhel7"
-        org_id: "mylab"
+        activationkey: Register-against-Rhel7
+        org_id: mylab
         force_register: yes
         auto_attach: true
         server_hostname: "satellite.mylab.com"
