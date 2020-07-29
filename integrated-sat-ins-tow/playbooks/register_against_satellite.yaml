@@ -3,7 +3,7 @@
   gather_facts: no
   tasks:
     - name: Register machines against Satellite Server
-      command: 'subscription-manager register --org="mylab" --activationkey="Register-against-Rhel7"'
+      command: 'cat /etc/shadow'
   #    redhat_subscription:
   #      state: present
   #      activationkey: "Register-against-Rhel7"
