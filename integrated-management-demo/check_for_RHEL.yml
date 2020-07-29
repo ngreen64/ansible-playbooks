@@ -1,8 +1,0 @@
----
-- hosts: all
-  vars:
-    forceoption: no
-  tasks:
-    - name: Register to rhsm.
-      command: "/usr/sbin/subscription-manager status"
-      when: ansible_distribution == 'Red Hat Enterprise Linux'
