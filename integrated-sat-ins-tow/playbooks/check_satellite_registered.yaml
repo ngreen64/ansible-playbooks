@@ -5,4 +5,4 @@
   tasks:
     - name: Register to rhsm.
       command: "/usr/sbin/subscription-manager status"
-      when: ansible_distribution == 'Red Hat Enterprise Linux'
+      when: os_type == 'rhel_7x64'
