@@ -1,7 +1,6 @@
 ---
 - hosts: all:!tag_infranode
-  vars:
-    gather_facts: yes
+  gather_facts: yes
   tasks:
     - name: Check whether this server is registered against Satellite Server
       command: "/usr/sbin/subscription-manager status"
