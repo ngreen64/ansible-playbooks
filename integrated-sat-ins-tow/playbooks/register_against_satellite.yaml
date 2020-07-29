@@ -1,1 +1,12 @@
-Register-against-Rhel7
+---
+- hosts: all:!tag_infranode
+  vars:
+    gather_facts: no
+  tasks:
+    - name: Register to against Satellite Server
+      redhat_subscription:
+        state: present
+        activationkey: "Register-against-Rhel7"
+        auto_attach: true
+        server_hostname: "satellite.mylab.com"
+
