@@ -8,14 +8,20 @@
       register: result
       ignore_errors: true
       when: os_type == 'rhel_7x64'
-      
-    - name: Register machines against Satellite Server
-      redhat_subscription:
-        state: present
-        activationkey: "{{ activation_key }}"
-        org_id: mylab
-        force_register: yes
-        auto_attach: true
-        server_hostname: "{{ satellite_server }}"
-        rhsm_baseurl: "{{ satellite_url }}"
+    
+      block:    
+      - name: Install the Satellite CA
+        yum: 
+          name: https://satellite.mylab.com/pub/katello-ca-consumer-latest.noarch.rpm
+          state: present
+          
+      - name: Register machines against Satellite Server
+        redhat_subscription:
+          state: present
+          activationkey: "{{ activation_key }}"
+          org_id: mylab
+          force_register: yes
+          auto_attach: true
+          server_hostname: "{{ satellite_server }}"
+          rhsm_baseurl: "{{ satellite_url }}"
       when: result is failed
