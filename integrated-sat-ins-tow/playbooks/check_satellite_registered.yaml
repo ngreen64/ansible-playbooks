@@ -10,11 +10,19 @@
       when: os_type == 'rhel_7x64'
     
     - name: Register any hosts that are not currently subscribed
-      block:    
+      block:
+      - name: Download the Satellite CA cert
+        command: "curl --insecure --output /tmp/katello-ca-consumer-latest.noarch.rpm {{ katello_rpm }}"
+        
       - name: Install the Satellite CA
         yum: 
-          name: "{{ katello_rpm }}"
+          name: /tmp/katello-ca-consumer-latest.noarch.rpm
           state: present
+          
+      - name: Remove the local RPM
+        file:
+          path: /tmp/katello-ca-consumer-latest.noarch.rpm
+          state: absent
           
       - name: Register machines against Satellite Server
         redhat_subscription:
