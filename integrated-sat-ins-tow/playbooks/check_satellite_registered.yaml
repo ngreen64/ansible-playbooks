@@ -12,9 +12,12 @@
     - name: Register any hosts that are not currently subscribed
       block:
       - name: Download the Satellite CA cert
-        command: "curl --insecure --output /tmp/katello-ca-consumer-latest.noarch.rpm {{ katello_rpm }}"
+        get_url:
+          url: "{{ katello_rpm }}"
+          dest: /tmp/katello-ca-consumer-latest.noarch.rpm
+          validate_certs: no
         
-      - name: Install the Satellite CA
+      - name: Install the Satellite CA via the downloaded RPM
         yum: 
           name: /tmp/katello-ca-consumer-latest.noarch.rpm
           state: present
