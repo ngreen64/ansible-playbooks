@@ -5,4 +5,17 @@
   tasks:
     - name: Check whether this server is registered against Satellite Server
       command: "/usr/sbin/subscription-manager status"
+      register: result
+      ignore_errors: true
       when: os_type == 'rhel_7x64'
+      
+      
+    - name: Register machines against Satellite Server
+      redhat_subscription:
+        state: present
+        activationkey: Register-against-Rhel7
+        org_id: mylab
+        force_register: yes
+        auto_attach: true
+        server_hostname: "satellite.mylab.com
+      when: result is failed
