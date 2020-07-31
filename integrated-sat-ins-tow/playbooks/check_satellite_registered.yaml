@@ -17,5 +17,5 @@
         org_id: mylab
         force_register: yes
         auto_attach: true
-        server_hostname: "satellite.mylab.com
+        server_hostname: "satellite.mylab.com"
       when: result is failed
