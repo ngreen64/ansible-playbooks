@@ -12,10 +12,10 @@
     - name: Register machines against Satellite Server
       redhat_subscription:
         state: present
-        activationkey: {{ activation_key }}
+        activationkey: "{{ activation_key }}"
         org_id: mylab
         force_register: yes
         auto_attach: true
-        server_hostname: {{ satellite_server }}
-        rhsm_baseurl: {{ satellite_url }}
+        server_hostname: "{{ satellite_server }}"
+        rhsm_baseurl: "{{ satellite_url }}"
       when: result is failed
