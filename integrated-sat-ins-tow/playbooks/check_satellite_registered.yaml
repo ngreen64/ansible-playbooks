@@ -9,13 +9,13 @@
       ignore_errors: true
       when: os_type == 'rhel_7x64'
       
-      
     - name: Register machines against Satellite Server
       redhat_subscription:
         state: present
-        activationkey: Register-against-Rhel7
+        activationkey: {{ activation_key }}
         org_id: mylab
         force_register: yes
         auto_attach: true
-        server_hostname: "satellite.mylab.com"
+        server_hostname: {{ satellite_server }}
+        rhsm_baseurl: {{ satellite_url }}
       when: result is failed
