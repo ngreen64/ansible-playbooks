@@ -12,11 +12,21 @@
     - name: Register any hosts that are not currently subscribed
       ovirt_tag:
         name: "satellite-registered"
+        auth:
+          hostname: "{{ rhv_server }}"
+          insecure: yes
+          username: "{{ rhv_user }}"
+          password: "{{ rhv_password }}"
         vms: "{{ ansible_hostname }}"
       when: result is succeeded
     
     - name: Register any hosts that are not currently subscribed
       ovirt_tag:
         name: "satellite-not-registered"
+        auth:
+          hostname: "{{ rhv_server }}"
+          insecure: yes
+          username: "{{ rhv_user }}"
+          password: "{{ rhv_password }}"
         vms: "{{ ansible_hostname }}"
       when: result is failed
