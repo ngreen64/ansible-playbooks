@@ -1,0 +1,22 @@
+---
+- hosts: all:!tag_infranode
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: Check whether this server is registered against Satellite Server
+      command: "/usr/sbin/subscription-manager status"
+      register: result
+      ignore_errors: true
+      when: os_type == 'rhel_7x64'
+        
+    - name: Register any hosts that are not currently subscribed
+      ovirt_tag:
+        name: "satellite-registered"
+        vms: "{{ ansible_hostname }}"
+      when: result is succeeded
+    
+    - name: Register any hosts that are not currently subscribed
+      ovirt_tag:
+        name: "satellite-not-registered"
+        vms: "{{ ansible_hostname }}"
+      when: result is failed
