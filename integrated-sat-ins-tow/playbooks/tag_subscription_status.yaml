@@ -19,7 +19,7 @@
           username: "{{ rhv_user }}"
           password: "{{ rhv_password }}"
         vms:
-          - {{ inventory_hostname }}
+          - "{{ inventory_hostname }}"
       when: result is succeeded
     
     - name: Tag hosts that are NOT currently subscribed to satellite
