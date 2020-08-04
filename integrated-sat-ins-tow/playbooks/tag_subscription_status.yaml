@@ -8,10 +8,11 @@
       register: result
       ignore_errors: true
       when: os_type == 'rhel_7x64'
-        
+ 
+- hosts: localhost
+  tasks:      
     - name: Register any hosts that are not currently subscribed
-      local_action:
-        module: ovirt_tag
+      ovirt_tag:
         name: "satellite-registered"
         auth:
           hostname: "{{ rhv_server }}"
@@ -22,8 +23,7 @@
       when: result is succeeded
     
     - name: Register any hosts that are not currently subscribed
-      local_action:
-        module: ovirt_tag
+      ovirt_tag:
         name: "satellite-not-registered"
         auth:
           hostname: "{{ rhv_server }}"
