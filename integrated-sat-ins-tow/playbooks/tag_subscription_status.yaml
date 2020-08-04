@@ -24,15 +24,15 @@
       when: result is succeeded
     
     - name: Tag hosts that are NOT currently subscribed to satellite
+      become: false
       local_action:
-         module: debug
-         msg: System {{ inventory_hostname }} is NOT good
-#      ovirt_tag:
-#        name: "satellite-not-registered"
-#        auth:
-#          hostname: "{{ rhv_server }}"
-#          insecure: yes
-#          username: "{{ rhv_user }}"
-#          password: "{{ rhv_password }}"
-#        vms: "{{ ansible_hostname }}"
-      when: result is failed
+        moduile: ovirt_tag
+        name: "satellite-not-registered"
+        auth:
+          hostname: "{{ rhv_server }}"
+          insecure: yes
+          username: "{{ rhv_user }}"
+          password: "{{ rhv_password }}"
+        vms:
+          - "{{ ansible_hostname }}"
+     when: result is failed
