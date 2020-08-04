@@ -24,8 +24,8 @@
 #          - "tower.mylab.com"
       when: result is succeeded
     
-   - name: Tag hosts that are NOT currently subscribed to satellite
-     local_action:
+    - name: Tag hosts that are NOT currently subscribed to satellite
+      local_action:
          module: debug
          msg: System {{ inventory_hostname }} is NOT good
 #      ovirt_tag:
