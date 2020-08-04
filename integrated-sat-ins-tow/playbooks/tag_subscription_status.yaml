@@ -35,4 +35,4 @@
           password: "{{ rhv_password }}"
         vms:
           - "{{ ansible_hostname }}"
-     when: result is failed
+      when: result is failed
