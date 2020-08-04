@@ -10,6 +10,7 @@
       when: os_type == 'rhel_7x64'
  
     - name: Tag hosts that are currently subscribed to satellite
+      become: false
       local_action:
         module: ovirt_tag
         name: "satellite-registered"
