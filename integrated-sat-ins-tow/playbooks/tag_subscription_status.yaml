@@ -21,7 +21,8 @@
       when: result is succeeded
     
     - name: Register any hosts that are not currently subscribed
-      ovirt_tag:
+      local_action:
+        module: ovirt_tag
         name: "satellite-not-registered"
         auth:
           hostname: "{{ rhv_server }}"
