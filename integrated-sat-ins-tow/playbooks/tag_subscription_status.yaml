@@ -9,27 +9,28 @@
       ignore_errors: true
       when: os_type == 'rhel_7x64'
  
-- hosts: localhost
-  tasks:      
     - name: Register any hosts that are not currently subscribed
-      ovirt_tag:
-        name: "satellite-registered"
-        auth:
-          hostname: "{{ rhv_server }}"
-          insecure: yes
-          username: "{{ rhv_user }}"
-          password: "{{ rhv_password }}"
-        vms:
-          - "tower.mylab.com"
+      local_action:
+         module: debug
+         msg: System {{ inventory_hostname }} is good
+#        module: ovirt_tag
+#        name: "satellite-registered"
+#        auth:
+#          hostname: "{{ rhv_server }}"
+#          insecure: yes
+#          username: "{{ rhv_user }}"
+#          password: "{{ rhv_password }}"
+#        vms:
+#          - "tower.mylab.com"
       when: result is succeeded
-    
-    - name: Register any hosts that are not currently subscribed
-      ovirt_tag:
-        name: "satellite-not-registered"
-        auth:
-          hostname: "{{ rhv_server }}"
-          insecure: yes
-          username: "{{ rhv_user }}"
-          password: "{{ rhv_password }}"
-        vms: "{{ ansible_hostname }}"
-      when: result is failed
+#    
+#   - name: Register any hosts that are not currently subscribed
+#      ovirt_tag:
+#        name: "satellite-not-registered"
+#        auth:
+#          hostname: "{{ rhv_server }}"
+#          insecure: yes
+#          username: "{{ rhv_user }}"
+#          password: "{{ rhv_password }}"
+#        vms: "{{ ansible_hostname }}"
+#      when: result is failed
