@@ -19,7 +19,8 @@
           insecure: yes
           username: "{{ rhv_user }}"
           password: "{{ rhv_password }}"
-        vms: "{{ ansible_hostname }}"
+        vms:
+          - "tower.mylab.com"
       when: result is succeeded
     
     - name: Register any hosts that are not currently subscribed
