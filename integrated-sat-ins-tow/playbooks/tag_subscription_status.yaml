@@ -11,17 +11,15 @@
  
     - name: Tag hosts that are currently subscribed to satellite
       local_action:
-         module: debug
-         msg: System {{ inventory_hostname }} is good
-#        module: ovirt_tag
-#        name: "satellite-registered"
-#        auth:
-#          hostname: "{{ rhv_server }}"
-#          insecure: yes
-#          username: "{{ rhv_user }}"
-#          password: "{{ rhv_password }}"
-#        vms:
-#          - "tower.mylab.com"
+        module: ovirt_tag
+        name: "satellite-registered"
+        auth:
+          hostname: "{{ rhv_server }}"
+          insecure: yes
+          username: "{{ rhv_user }}"
+          password: "{{ rhv_password }}"
+        vms:
+          - {{ inventory_hostname }}
       when: result is succeeded
     
     - name: Tag hosts that are NOT currently subscribed to satellite
