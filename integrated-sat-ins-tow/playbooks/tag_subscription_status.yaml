@@ -9,10 +9,6 @@
       ignore_errors: true
       when: os_type == 'rhel_7x64'
       
-    - name: Shout out hostname
-      debug:
-        msg: "{{ inventory_hostname }}"
-      
     - name: Tag hosts that are currently subscribed to satellite
       become: false
       local_action:
@@ -38,5 +34,5 @@
           username: "{{ rhv_user }}"
           password: "{{ rhv_password }}"
         vms:
-          - "{{ ansible_hostname }}"
+          - "{{ inventory_hostname }}"
       when: result is failed
