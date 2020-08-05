@@ -11,28 +11,53 @@
       
     - name: Tag hosts that are currently subscribed to satellite
       become: false
-      local_action:
-        module: ovirt_tag
-        name: "satellite-registered"
-        auth:
-          hostname: "{{ rhv_server }}"
-          insecure: yes
-          username: "{{ rhv_user }}"
-          password: "{{ rhv_password }}"
-        vms:
-         - "{{ inventory_hostname }}"
+      block:
+        local_action:
+          module: ovirt_tag
+          name: "satellite-registered"
+          state: attached
+          auth:
+            hostname: "{{ rhv_server }}"
+            insecure: yes
+            username: "{{ rhv_user }}"
+            password: "{{ rhv_password }}"
+          vms:
+           - "{{ inventory_hostname }}"
+         local_action:
+          module: ovirt_tag
+          name: "satellite-not-registered"
+          state: detached
+          auth:
+            hostname: "{{ rhv_server }}"
+            insecure: yes
+            username: "{{ rhv_user }}"
+            password: "{{ rhv_password }}"
+          vms:
+           - "{{ inventory_hostname }}"
       when: result is succeeded
     
     - name: Tag hosts that are not currently subscribed to satellite
       become: false
-      local_action:
-        module: ovirt_tag
-        name: "satellite-not-registered"
-        auth:
-          hostname: "{{ rhv_server }}"
-          insecure: yes
-          username: "{{ rhv_user }}"
-          password: "{{ rhv_password }}"
-        vms:
-          - "{{ inventory_hostname }}"
+      block:
+        local_action:
+          module: ovirt_tag
+          name: "satellite-not-registered"
+          auth:
+            hostname: "{{ rhv_server }}"
+            insecure: yes
+            username: "{{ rhv_user }}"
+            password: "{{ rhv_password }}"
+          vms:
+            - "{{ inventory_hostname }}"
+        local_action:
+          module: ovirt_tag
+          name: "satellite-registered"
+          state: detached
+          auth:
+            hostname: "{{ rhv_server }}"
+            insecure: yes
+            username: "{{ rhv_user }}"
+            password: "{{ rhv_password }}"
+          vms:
+           - "{{ inventory_hostname }}"
       when: result is failed
