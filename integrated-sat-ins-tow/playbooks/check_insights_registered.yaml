@@ -1,1 +1,21 @@
-check_insights_registered
+---
+- hosts: all:!tag_infranode
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Check whether this server is registered against Insights
+      command: "/usr/bin/insights-client --status"
+      register: result
+      ignore_errors: true
+      when: os_type == 'rhel_7x64'
+    
+    - name: Register any hosts that are not currently subscribed
+      block:
+      - name: Ensure that the Insights client is installed
+        yum:
+          name: insights-client
+          state: present
+          
+      - name: Run the client registration
+        command: "/usr/bin/insights-client --register"
+      when: result is failed
