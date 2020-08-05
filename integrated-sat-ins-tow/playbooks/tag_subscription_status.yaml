@@ -9,24 +9,24 @@
       ignore_errors: true
       when: os_type == 'rhel_7x64'
       
-#    - name: Tag hosts that are currently subscribed to satellite
-#      become: false
-#      local_action:
-#        module: ovirt_tag
-#        name: "satellite-registered"
-#        auth:
-#          hostname: "{{ rhv_server }}"
-#          insecure: yes
-#          username: "{{ rhv_user }}"
-#          password: "{{ rhv_password }}"
-#        vms:
-#         - "{{ inventory_hostname }}"
-#     when: result is succeeded
+    - name: Tag hosts that are currently subscribed to satellite
+      become: false
+      local_action:
+        module: ovirt_tag
+        name: "satellite-registered"
+        auth:
+          hostname: "{{ rhv_server }}"
+          insecure: yes
+          username: "{{ rhv_user }}"
+          password: "{{ rhv_password }}"
+        vms:
+         - "{{ inventory_hostname }}"
+     when: result is succeeded
     
     - name: Tag hosts that are not currently subscribed to satellite
       become: false
       local_action:
-        moduile: ovirt_tag
+        module: ovirt_tag
         name: "satellite-not-registered"
         auth:
           hostname: "{{ rhv_server }}"
