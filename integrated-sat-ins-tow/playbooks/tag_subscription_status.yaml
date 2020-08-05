@@ -21,7 +21,7 @@
           password: "{{ rhv_password }}"
         vms:
          - "{{ inventory_hostname }}"
-     when: result is succeeded
+      when: result is succeeded
     
     - name: Tag hosts that are not currently subscribed to satellite
       become: false
