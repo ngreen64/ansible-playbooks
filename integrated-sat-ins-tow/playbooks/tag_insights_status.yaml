@@ -1,0 +1,38 @@
+---
+- hosts: all:!tag_infranode
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: Check whether this server is registered against Insights
+      command: "/usr/bin/insights-client --status"
+      register: result
+      ignore_errors: true
+      when: os_type == 'rhel_7x64'
+      
+    - name: Tag hosts that are currently subscribed to Insights
+      become: false
+      local_action:
+        module: ovirt_tag
+        name: "insights-registered"
+        auth:
+          hostname: "{{ rhv_server }}"
+          insecure: yes
+          username: "{{ rhv_user }}"
+          password: "{{ rhv_password }}"
+        vms:
+         - "{{ inventory_hostname }}"
+      when: result is succeeded
+    
+    - name: Tag hosts that are not currently subscribed to Insights
+      become: false
+      local_action:
+        module: ovirt_tag
+        name: "insights-not-registered"
+        auth:
+          hostname: "{{ rhv_server }}"
+          insecure: yes
+          username: "{{ rhv_user }}"
+          password: "{{ rhv_password }}"
+        vms:
+          - "{{ inventory_hostname }}"
+      when: result is failed
