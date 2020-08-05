@@ -23,7 +23,7 @@
 #         - "{{ inventory_hostname }}"
 #     when: result is succeeded
     
-    - name: Tag hosts that are NOT currently subscribed to satellite
+    - name: Tag hosts that are not currently subscribed to satellite
       become: false
       local_action:
         moduile: ovirt_tag
