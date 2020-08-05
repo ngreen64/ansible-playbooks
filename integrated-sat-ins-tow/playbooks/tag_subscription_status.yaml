@@ -9,10 +9,9 @@
       ignore_errors: true
       when: os_type == 'rhel_7x64'
       
-    - name: Tag hosts that are currently subscribed to satellite
+    - name: Tag hosts that are currently subscribed to satellite - add registered tag
       become: false
-      local_action:
-        module: ovirt_tag
+      ovirt_tag:
         name: "satellite-registered"
         state: attached
         auth:
@@ -21,11 +20,13 @@
           username: "{{ rhv_user }}"
           password: "{{ rhv_password }}"
         vms:
-         - "{{ inventory_hostname }}"
+          - "{{ inventory_hostname }}"
+      delegate_to: localhost
       when: result is succeeded
-      
-      local_action:
-        module: ovirt_tag
+
+    - name: Tag hosts that are currently subscribed to satellite - remove not-registered tag
+      become: false
+      ovirt_tag:
         name: "satellite-not-registered"
         state: detached
         auth:
@@ -34,25 +35,13 @@
           username: "{{ rhv_user }}"
           password: "{{ rhv_password }}"
         vms:
-         - "{{ inventory_hostname }}"
-      when: result is succeeded
-    
-    - name: Tag hosts that are not currently subscribed to satellite
-      become: false
-      local_action:
-        module: ovirt_tag
-        name: "satellite-not-registered"
-        auth:
-          hostname: "{{ rhv_server }}"
-          insecure: yes
-          username: "{{ rhv_user }}"
-          password: "{{ rhv_password }}"
-        vms:
           - "{{ inventory_hostname }}"
-      when: result is failed      
-      
-      local_action:
-        module: ovirt_tag
+      delegate_to: localhost
+      when: result is succeeded
+
+    - name: Tag hosts that are currently not subscribed to satellite - remove registered tag
+      become: false
+      ovirt_tag:
         name: "satellite-registered"
         state: detached
         auth:
@@ -62,4 +51,20 @@
           password: "{{ rhv_password }}"
         vms:
           - "{{ inventory_hostname }}"
+      delegate_to: localhost
+      when: result is failed
+
+    - name: Tag hosts that are currently subscribed to satellite - add not-registered tag
+      become: false
+      ovirt_tag:
+        name: "satellite-not-registered"
+        state: attached
+        auth:
+          hostname: "{{ rhv_server }}"
+          insecure: yes
+          username: "{{ rhv_user }}"
+          password: "{{ rhv_password }}"
+        vms:
+          - "{{ inventory_hostname }}"
+      delegate_to: localhost
       when: result is failed
