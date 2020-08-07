@@ -5,4 +5,5 @@
   tasks:
   - name: Send an alert email
     mail:
-      subject: "{{ alert_message }}"
+      subject: "{{ alert_subject }}"
+      body: "{{ alert_body }}"
