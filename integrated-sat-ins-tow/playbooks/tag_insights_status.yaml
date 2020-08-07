@@ -9,25 +9,11 @@
       ignore_errors: true
       when: os_type == 'rhel_7x64'
       
-    - name: Tag hosts that are currently subscribed to Insights
+    - name: Tag hosts that are currently subscribed to insights - add registered tag
       become: false
-      local_action:
-        module: ovirt_tag
+      ovirt_tag:
         name: "insights-registered"
-        auth:
-          hostname: "{{ rhv_server }}"
-          insecure: yes
-          username: "{{ rhv_user }}"
-          password: "{{ rhv_password }}"
-        vms:
-         - "{{ inventory_hostname }}"
-      when: result is succeeded
-    
-    - name: Tag hosts that are not currently subscribed to Insights
-      become: false
-      local_action:
-        module: ovirt_tag
-        name: "insights-not-registered"
+        state: attached
         auth:
           hostname: "{{ rhv_server }}"
           insecure: yes
@@ -35,4 +21,50 @@
           password: "{{ rhv_password }}"
         vms:
           - "{{ inventory_hostname }}"
+      delegate_to: localhost
+      when: result is succeeded
+
+    - name: Tag hosts that are currently subscribed to insights - remove not-registered tag
+      become: false
+      ovirt_tag:
+        name: "insights-not-registered"
+        state: detached
+        auth:
+          hostname: "{{ rhv_server }}"
+          insecure: yes
+          username: "{{ rhv_user }}"
+          password: "{{ rhv_password }}"
+        vms:
+          - "{{ inventory_hostname }}"
+      delegate_to: localhost
+      when: result is succeeded
+
+    - name: Tag hosts that are currently not subscribed to insights - remove registered tag
+      become: false
+      ovirt_tag:
+        name: "insights-registered"
+        state: detached
+        auth:
+          hostname: "{{ rhv_server }}"
+          insecure: yes
+          username: "{{ rhv_user }}"
+          password: "{{ rhv_password }}"
+        vms:
+          - "{{ inventory_hostname }}"
+      delegate_to: localhost
+      when: result is failed
+
+    - name: Tag hosts that are currently subscribed to insights - add not-registered tag
+      become: false
+      ovirt_tag:
+        name: "insights-not-registered"
+        state: attached
+        auth:
+          hostname: "{{ rhv_server }}"
+          insecure: yes
+          username: "{{ rhv_user }}"
+          password: "{{ rhv_password }}"
+        vms:
+          - "{{ inventory_hostname }}"
+      delegate_to: localhost
       when: result is failed
